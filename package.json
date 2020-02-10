@@ -1,0 +1,23 @@
+{
+  "name": "solarwindskit",
+  "version": "1.0.0",
+  "description": "velocloudstatus",
+  "main": "app.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bottleneck": "^2.19.5",
+    "cli-progress": "^3.6.0",
+    "colors": "^1.4.0",
+    "dotenv": "^8.2.0",
+    "json2csv": "^4.5.4",
+    "nodeutilz": "^1.2.2",
+    "request": "^2.88.0"
+  }
+}
