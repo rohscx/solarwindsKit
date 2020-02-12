@@ -11,7 +11,10 @@ const veloCloudData = require('../import/edgeSerialNumbers.json');
 const manufacturerData = require('../import/manufacturer.json');
 const wirelessAccessPoints = require('../import/wirelessAccessPoints.json'); 
 const wirelessControllers = require('../import/wirelessControllers.json'); 
-const filePath1 = (data,type="json") => `./export/${type}/inventory_${data}.${type}`;
+const nonProductionIpAddresses = require('../import/nonProductionIpAddresses.json'); 
+
+
+const filePath1 = (data,type="json") => `./export/${type}/networkDeviceInventoryBasic_${data}.${type}`;
 const getOctents = (data,octetLimit=2) => {
     const  split = data.split('.');
     const filtered = split.filter((f,i) => i+1 <= octetLimit);
@@ -81,7 +84,7 @@ const manufacturerCombinded = manufacturerCombindedData(combindedData, hashableM
 // Filter 0.0.0.0 addresses
 //const filteredData = manufacturerCombinded.filter(({caption, ip, description, serialNumber, manufacturer, model, association}) => ip.trim() !== "0.0.0.0");
 
-const nonProd = ["10.121.250.10", "10.16.31.99", "10.100.254.12", "10.100.0.10", "10.100.0.11", "10.16.31.98", "10.16.31.98", "10.16.31.16", "10.100.0.33", "10.100.10.240", "10.100.10.241", "10.16.31.245", "10.100.10.85", "10.100.254.70", "10.16.30.210", "10.16.30.211", "10.22.10.210", "10.22.10.211"];
+const nonProd = nonProductionIpAddresses;
 const combinded= combindedDataWithNewKeys(manufacturerCombinded, nonProd);
 
 const objectKeys = ["caption", "ip", "description", "serialNumber", "manufacturer", "model", "association", "production"];
