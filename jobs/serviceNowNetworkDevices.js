@@ -70,7 +70,9 @@ const wirelessControllersData = wirelessControllersFormating(wirelessControllers
 
 const externalSourceIpv4 = [...wirelessControllersData,...VceObjectData,...accessPointsData].map(({ip}) => ip);
 
-const deviceDataAcaFiltered = deviceDataAca.filter(({ip}) => !externalSourceIpv4.includes(ip));
+const deviceDataAcaFiltered = deviceDataAca
+    .filter(({ip}) => !externalSourceIpv4.includes(ip)) // Filter device IP addressed imported from external files sources
+    .filter(({serialNumber}) =>  serialNumber !== null ); // Filter devices without serial numbers
 
 combindedData = [...deviceDataAcaFiltered,...VceObjectData,...accessPointsData,...wirelessControllersData];
 
