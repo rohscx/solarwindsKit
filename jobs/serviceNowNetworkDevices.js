@@ -73,19 +73,20 @@ const wirelessControllersData = wirelessControllersFormating(wirelessControllers
 
 const externalSourceIpv4 = [...wirelessControllersData,...VceObjectData,...accessPointsData].map(({ip}) => ip);
 
-const deviceDataAcaFiltered = deviceDataAca
+const externalSourceIpv4Filtered = deviceDataAca
     .filter(({ip}) => !externalSourceIpv4.includes(ip)) // Filter device IP addressed imported from external files sources
-    .filter(({serialNumber}) =>  serialNumber !== null ); // Filter devices without serial numbers
-
-combindedData = [...deviceDataAcaFiltered,...VceObjectData,...accessPointsData,...wirelessControllersData];
+    
+combindedData = [...externalSourceIpv4Filtered,...VceObjectData,...accessPointsData,...wirelessControllersData];
 
 const manufacturerCombinded = manufacturerCombindedData(combindedData, hashableMe);
+
+const manufacturerCombindedFiltered = manufacturerCombinded.filter(({serialNumber}) =>  serialNumber !== null ); // Filter devices without serial numbers
 
 // Filter 0.0.0.0 addresses
 //const filteredData = manufacturerCombinded.filter(({caption, ip, description, serialNumber, manufacturer, model, association}) => ip.trim() !== "0.0.0.0");
 
 const nonProd = nonProductionIpAddresses;
-const combinded= combindedDataWithNewKeys(manufacturerCombinded, nonProd);
+const combinded= combindedDataWithNewKeys(manufacturerCombindedFiltered, nonProd);
 
 const objectKeys = ["caption", "ip", "description", "serialNumber", "manufacturer", "model", "association", "production"];
 const opts = { fields: objectKeys, unwind:"networks"}
